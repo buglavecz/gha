@@ -8,7 +8,7 @@ on:
         type: string
         required: false
       boolean_input:
-        description: 'Igaz vagy hamis?'
+        description: 'Igaz?'
         type: boolean
         required: false
       choice_input:
@@ -19,13 +19,10 @@ on:
           - nem
         required: true
       number_input:
-        description: 'Adj meg egy számot'
+        description: 'Adj meg egy számot (nincs validálva)'
         type: number
         required: false
-      environment_input:
-        description: 'Válassz egy környezetet'
-        type: environment
-        required: false
+
 
 jobs:
   print-inputs:
@@ -47,6 +44,3 @@ jobs:
         run: |
           echo "Number input: ${{ github.event.inputs.number_input }}"
 
-      - name: Print environment input
-        run: |
-          echo "Environment input: ${{ github.event.inputs.environment_input }}"
