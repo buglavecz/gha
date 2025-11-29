@@ -1,4 +1,4 @@
-name: 01 - runners.yml
+name: 01 - Runner Info Demo
 
 on:
   workflow_dispatch:
@@ -11,15 +11,41 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-      - name: Print system information
+      - name: Show runner info
+        shell: bash
         run: |
-          echo "=== OS VERSION ==="
-          uname -a || systeminfo
+          echo "========================================"
+          echo " RUNNING ON: ${{ matrix.os }}"
+          echo "========================================"
 
-          echo ""
-          echo "=== CPU INFO ==="
-          lscpu 2>/dev/null || wmic cpu get name,NumberOfCores,NumberOfLogicalProcessors
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            echo "=== OS INFO ==="
+            uname -a
 
-          echo ""
-          echo "=== MEMORY INFO ==="
-          free -h 2>/dev/null || wmic os get TotalVisibleMemorySize,FreePhysicalMemory
+            echo "=== CPU INFO ==="
+            lscpu
+
+            echo "=== MEMORY INFO ==="
+            free -h
+
+          elif [[ "$RUNNER_OS" == "Windows" ]]; then
+            echo "=== OS INFO ==="
+            systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
+
+            echo "=== CPU INFO ==="
+            wmic cpu get Name,NumberOfCores,NumberOfLogicalProcessors
+
+            echo "=== MEMORY INFO ==="
+            wmic os get TotalVisibleMemorySize,FreePhysicalMemory
+
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            echo "=== OS INFO ==="
+            sw_vers
+
+            echo "=== CPU INFO ==="
+            sysctl -n machdep.cpu.brand_string
+            sysctl -a | grep machdep.cpu | grep core_count
+
+            echo "=== MEMORY INFO ==="
+            sysctl hw.memsize
+          fi
