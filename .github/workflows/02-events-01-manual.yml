@@ -1,4 +1,4 @@
-name: 02 events manual
+name: 02 events 01 manual
 
 on:
   workflow_dispatch:
