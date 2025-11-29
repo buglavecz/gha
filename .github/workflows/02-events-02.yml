@@ -1,6 +1,8 @@
 name: 02 events 02
 
 on:
+  schedule:
+    - cron: "0 2 * * 1" # hetente egyszer szeretnéd futtatni, például hétfőn éjjel 2-kor
   issues:
     types:
       - opened
@@ -12,7 +14,7 @@ on:
       - master
       - dev
     paths:
-      - src/*.js
+      - src/**/*.js # glob pattern
   pull_request:
     types:
       - opened
