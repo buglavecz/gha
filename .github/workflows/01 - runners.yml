@@ -1,0 +1,25 @@
+name: 01 - runners.yml
+
+on:
+  workflow_dispatch:
+
+jobs:
+  runner-info:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Print system information
+        run: |
+          echo "=== OS VERSION ==="
+          uname -a || systeminfo
+
+          echo ""
+          echo "=== CPU INFO ==="
+          lscpu 2>/dev/null || wmic cpu get name,NumberOfCores,NumberOfLogicalProcessors
+
+          echo ""
+          echo "=== MEMORY INFO ==="
+          free -h 2>/dev/null || wmic os get TotalVisibleMemorySize,FreePhysicalMemory
