@@ -5,6 +5,7 @@ on:
     inputs:
       name:
         description: 'Válassz'
+        type: choice
         options:
           - igen
           - nem
