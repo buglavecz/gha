@@ -29,18 +29,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print string input
-        run: |
-          echo "String input: ${{ github.event.inputs.string_input }}"
+        run: echo "String input ${{ inputs.string_input }}"
 
       - name: Print boolean input
-        run: |
-          echo "Boolean input: ${{ github.event.inputs.boolean_input }}"
+        run: echo "Boolean input ${{ github.event.inputs.boolean_input }}"
 
       - name: Print choice input
-        run: |
-          echo "Choice input: ${{ github.event.inputs.choice_input }}"
+        run: echo "Choice input ${{ github.event.inputs.choice_input }}"
 
       - name: Print number input
-        run: |
-          echo "Number input: ${{ github.event.inputs.number_input }}"
+        run: echo "Number input ${{ github.event.inputs.number_input }}"
 
