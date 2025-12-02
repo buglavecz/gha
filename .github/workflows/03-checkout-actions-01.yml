@@ -10,11 +10,8 @@ jobs:
       - name: Checkout code all files
         uses: actions/checkout@v4
 
-      - name: List checked-out files
-        run: ls -R .
-
       - name: Pretty print folder structure
-        run: tree -a .
+        run: tree -a -I ".git"
 
       - name: Checkout only TS files
         uses: actions/checkout@v4
@@ -23,9 +20,7 @@ jobs:
             src/**/*.ts
           sparse-checkout-cone-mode: false
 
-      - name: List checked-out files
-        run: ls -R .
 
       - name: Pretty print folder structure
-        run: tree -a .
+        run: tree -a -I ".git"
 
