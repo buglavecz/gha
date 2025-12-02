@@ -21,9 +21,7 @@ jobs:
          pnpm -v  
 
       - name: Install dependencies
-        run: | 
-          pnpm i
-          pnpm approve-builds
+        run: pnpm i --frozen-lockfile
 
       - name: Use consola package
         run: node src/hello.js
