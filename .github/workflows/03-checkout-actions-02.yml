@@ -1,10 +1,8 @@
 name: 03 checkout action 02
 
-#on:
-#  push:
-#    branches:
-#      - main
-#
+on:
+   workflow_dispatch:
+
 #jobs:
 #  build:
 #    runs-on: ubuntu-latest
