@@ -26,7 +26,7 @@ jobs:
           pnpm approve-builds
 
 #       CACHE START
-      - name: Restore client node_modules from cache
+      - name: Restore pnpm-store from cache
         id: pnpm-node-modules-cache
         uses: actions/cache@v4
         with:
@@ -34,12 +34,11 @@ jobs:
           key: pnpm-node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: pnpm-node-modules-${{ runner.os }}-
 
-      - name: Install client dependencies
+      - name: Install dependencies
         if: steps.pnpm-node-modules-cache.outputs.cache-hit != 'true'
-        working-directory: client
         run: pnpm i --frozen-lockfile
 
-      - name: Save client node_modules to cache
+      - name: Save pnpm-store to cache
         if: steps.pnpm-node-modules-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
