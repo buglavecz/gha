@@ -26,23 +26,22 @@ jobs:
         run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Restore pnpm-store from cache
-        id: pnpm-node-modules-cache
+        id: pnpm-store-cache
         uses: actions/cache@v4
         with:
           path: ${{ env.STORE_PATH }}
-          key: pnpm-node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: pnpm-node-modules-${{ runner.os }}-
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: pnpm-store-${{ runner.os }}-
 
       - name: Install dependencies
-        if: steps.pnpm-node-modules-cache.outputs.cache-hit != 'true'
         run: pnpm i --frozen-lockfile
 
       - name: Save pnpm-store to cache
-        if: steps.pnpm-node-modules-cache.outputs.cache-hit != 'true'
+        if: steps.pnpm-store-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
           path: ${{ env.STORE_PATH }}
-          key: pnpm-node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 #       CACHE END
 
       - name: Use consola package
