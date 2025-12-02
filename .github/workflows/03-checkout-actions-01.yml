@@ -7,10 +7,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout code all files
         uses: actions/checkout@v4
 
       - name: List checked-out files
         run: ls -R .
 
+      - name: Pretty print folder structure
+        run: tree -a .
+
+      - name: Checkout only TS files
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            src/**/*.ts
+          sparse-checkout-cone-mode: false
+
+      - name: List checked-out files
+        run: ls -R .
+
+      - name: Pretty print folder structure
+        run: tree -a .
 
