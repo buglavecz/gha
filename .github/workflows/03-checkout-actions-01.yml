@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  checkout:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code all files
@@ -20,6 +20,15 @@ jobs:
             src/**/*.ts
           sparse-checkout-cone-mode: false
 
+      - name: Pretty print folder structure
+        run: tree -a -I ".git"
+
+      - name: Checkout fodlers
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            assets
 
       - name: Pretty print folder structure
         run: tree -a -I ".git"
