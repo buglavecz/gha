@@ -69,5 +69,4 @@
     "vitest-environment-nuxt": "^1.0.1",
     "vue-tsc": "^3.1.5"
   },
-  "private": true
 }
