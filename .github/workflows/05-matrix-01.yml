@@ -1,0 +1,32 @@
+name: 05 matrix strategy 01
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup-node:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [  16, 18, 20 ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Activete PNPM
+        run: | 
+         corepack enable
+         pnpm -v  
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Use consola package
+        run: node src/hello.js
+
+
