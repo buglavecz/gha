@@ -21,11 +21,15 @@ jobs:
          pnpm -v  
 
 #       CACHE START
+      - name: Get pnpm store directory
+        id: pnpm-store-path
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
       - name: Restore pnpm-store from cache
         id: pnpm-node-modules-cache
         uses: actions/cache@v4
         with:
-          path: /home/runner/.cache/pnpm
+          path: ${{ env.STORE_PATH }}
           key: pnpm-node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: pnpm-node-modules-${{ runner.os }}-
 
@@ -37,7 +41,7 @@ jobs:
         if: steps.pnpm-node-modules-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
-          path: /home/runner/.cache/pnpm
+          path: ${{ env.STORE_PATH }}
           key: pnpm-node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 #       CACHE END
 
