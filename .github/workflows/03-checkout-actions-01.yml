@@ -7,23 +7,23 @@ jobs:
   checkout:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code all files
+      - name: Checkout code ALL files
         uses: actions/checkout@v4
 
       - name: Pretty print folder structure
         run: tree -a -I ".git"
 
-      - name: Checkout only TS files
+      - name: Checkout ONLY TS files
         uses: actions/checkout@v4
         with:
           sparse-checkout: |
-            src/**/*.ts
+            **/*.js
           sparse-checkout-cone-mode: false
 
       - name: Pretty print folder structure
         run: tree -a -I ".git"
 
-      - name: Checkout fodlers
+      - name: Checkout ONLY folders
         uses: actions/checkout@v4
         with:
           sparse-checkout: |

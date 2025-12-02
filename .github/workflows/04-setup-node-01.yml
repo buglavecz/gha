@@ -1,0 +1,26 @@
+name: 04 setup node action 01
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup-node:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Activete PNPM
+        run: | 
+         corepack enable
+         pnpm -v 
+
+      - name: Install dependencies
+        run: pnpm i
+
+
