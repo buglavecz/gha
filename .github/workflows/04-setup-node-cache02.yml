@@ -1,0 +1,53 @@
+name: 04 setup node cache action 02
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup-node:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Activete PNPM
+        run: | 
+         corepack enable
+         pnpm -v  
+
+      - name: Install dependencies
+        run: | 
+          pnpm i
+          pnpm approve-builds
+
+#       CACHE START
+      - name: Restore client node_modules from cache
+        id: pnpm-node-modules-cache
+        uses: actions/cache@v4
+        with:
+          path:  ~/.pnpm-store
+          key: pnpm-node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: pnpm-node-modules-${{ runner.os }}-
+
+      - name: Install client dependencies
+        if: steps.pnpm-node-modules-cache.outputs.cache-hit != 'true'
+        working-directory: client
+        run: pnpm i --frozen-lockfile
+
+      - name: Save client node_modules to cache
+        if: steps.pnpm-node-modules-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path:  ~/.pnpm-store
+          key: pnpm-node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+#       CACHE END
+
+      - name: Use consola package
+        run: node src/hello.js
+
+
