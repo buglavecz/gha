@@ -20,11 +20,6 @@ jobs:
          corepack enable
          pnpm -v  
 
-      - name: Install dependencies
-        run: | 
-          pnpm i
-          pnpm approve-builds
-
 #       CACHE START
       - name: Restore pnpm-store from cache
         id: pnpm-node-modules-cache
