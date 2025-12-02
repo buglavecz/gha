@@ -18,10 +18,14 @@ jobs:
       - name: Activete PNPM
         run: | 
          corepack enable
-         pnpm -v 
-         pnpm approve-builds 
+         pnpm -v  
 
       - name: Install dependencies
-        run: pnpm i
+        run: | 
+          pnpm i
+          pnpm approve-builds
+
+      - name: Use consola package
+        run: node src/hello.js
 
 
