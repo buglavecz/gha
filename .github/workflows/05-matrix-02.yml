@@ -1,0 +1,39 @@
+name: 05 matrix strategy 02
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup-node:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        node: [ 16, 18, 20, 22 ]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Activete PNPM
+        run: | 
+         corepack enable
+         pnpm -v  
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Use consola package
+        run: node src/hello.js
+
+
