@@ -1,0 +1,35 @@
+name: 07 github default env 01
+
+on:
+  workflow_dispatch:
+
+jobs:
+  show-default-env-vars:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print ENV variables directly from default runner ENVs
+        run: |
+          echo "ENV GITHUB_REF: $GITHUB_REF"
+          echo "ENV GITHUB_SHA: $GITHUB_SHA"
+          echo "ENV GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
+          echo "ENV GITHUB_ACTOR: $GITHUB_ACTOR"
+          echo "ENV GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+
+      - name: Print the same values using Context
+        run: |
+          echo "Context ref: ${{ github.ref }}"
+          echo "Context sha: ${{ github.sha }}"
+          echo "Context repository: ${{ github.repository }}"
+          echo "Context actor: ${{ github.actor }}"
+          echo "Context workspace: ${{ github.workspace }}"
+
+      - name: Demonstrate invalid access via env context
+        run: |
+          echo "Trying env.GITHUB_REF (should be empty / invalid): '${{ env.GITHUB_REF }}'"
+          echo "Correct: use github.ref instead"
+
+      - name: Example combining both types
+        run: |
+          echo "Commit message from context: ${{ github.event.head_commit.message }}"
+          echo "Workspace dir from ENV: $GITHUB_WORKSPACE"
