@@ -1,4 +1,4 @@
-name: Show GitHub Context
+name: 07 github-context-vars 01
 
 on:
   workflow_dispatch:
