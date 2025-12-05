@@ -1,0 +1,23 @@
+name: 08 github context vars 01
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - name: Print message
+        run: echo "Hello from GitHub Actions!"
+
+  prod:
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: Print message
+        run: echo "Hello from GitHub Actions!"
+
+
