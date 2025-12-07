@@ -6,7 +6,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    environment: test
+    environment:
+      name: test
+      url: https://github.com/prod
     steps:
       - name: Print message
         run: echo "Hello from GitHub Actions!"
@@ -15,7 +17,9 @@ jobs:
     needs:
       - test
     runs-on: ubuntu-latest
-    environment: prod
+    environment:
+      name: test
+      url: https://github.com/test
     steps:
       - name: Print message
         run: echo "Hello from GitHub Actions!"
