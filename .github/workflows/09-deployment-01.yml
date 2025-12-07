@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: test
-      url: https://github.com/prod
+      url: https://github.com/test
     steps:
       - name: Print message
         run: echo "Hello from GitHub Actions!"
@@ -18,8 +18,8 @@ jobs:
       - test
     runs-on: ubuntu-latest
     environment:
-      name: test
-      url: https://github.com/test
+      name: prod
+      url: https://github.com/prod
     steps:
       - name: Print message
         run: echo "Hello from GitHub Actions!"
